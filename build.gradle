@@ -1,0 +1,11 @@
+apply plugin: "groovy"
+apply plugin: "maven"
+
+archivesBaseName = "retrieve-text"
+version = "1.0"
+group "com.aat"
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+}
