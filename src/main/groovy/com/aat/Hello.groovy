@@ -14,11 +14,12 @@ class Hello implements Plugin<Project> {
     TextPluginExtension textApp
 
     void apply(Project project) {
-        applyExtensions(project);
-        project.task('hello') << {
+        applyExtensions(project)
+        /*project.task('hello') << {
             println "Hello from the GreetingPlugin"
             println textApp
-        }
+        }*/
+        applyTasks(project)
     }
 
     static void applyExtensions(final Project project) {
