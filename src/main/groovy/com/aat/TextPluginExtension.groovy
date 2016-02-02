@@ -5,11 +5,11 @@ import org.gradle.api.Project
 /**
  * Extension for plugin config properties
  */
-class HockeyAppPluginExtension {
+class TextPluginExtension {
     def Object outputDirectory
     def String url = null
 
-    private final Project project
+    private Project project
 
     public HockeyAppPluginExtension(Project project) {
         this.project = project
