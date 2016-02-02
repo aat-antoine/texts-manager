@@ -35,3 +35,13 @@ bintray {
         }
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    compile 'com.android.tools.build:gradle:1.5.0'
+}
