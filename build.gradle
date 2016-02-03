@@ -26,7 +26,7 @@ bintray {
     key = 'f85d406c4f6077510c8c91fa8facf030126cb7e7'
     publications = ['MyPublication']
     pkg {
-        repo = 'generic'
+        repo = 'maven'
         name = 'gradle-retrieve-text'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
