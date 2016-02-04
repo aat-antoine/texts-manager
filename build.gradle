@@ -1,5 +1,5 @@
 plugins {
-    id "com.jfrog.bintray" version "1.5"
+    id "com.jfrog.bintray" version "1.6"
 }
 apply plugin: 'groovy'
 apply plugin: 'maven'
@@ -7,7 +7,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 
 archivesBaseName = "gradle-retrieve-text"
-version = '1.0'
 group 'com.aat'
 
 publishing {
@@ -16,7 +15,7 @@ publishing {
             from components.java
             groupId 'com.aat'
             artifactId 'gradle-retrieve-text'
-            version '1.0-SNAPSHOT'
+            version project.property('version')
         }
     }
 }
@@ -25,13 +24,14 @@ bintray {
     user = 'arnoult-antoine'
     key = 'f85d406c4f6077510c8c91fa8facf030126cb7e7'
     publications = ['MyPublication']
+    configurations = ['archives']
     pkg {
         repo = 'maven'
         name = 'gradle-retrieve-text'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
         version {
-            name = '1.0-SNAPSHOT'
+            name = project.property('version')
         }
     }
 }
