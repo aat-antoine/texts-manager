@@ -11,7 +11,7 @@ class TextPluginExtension {
 
     private Project project
 
-    public HockeyAppPluginExtension(Project project) {
+    public TextPluginExtension(Project project) {
         this.project = project
         this.outputDirectory = {
             return project.project.getBuildDir()
