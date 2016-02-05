@@ -11,13 +11,14 @@ class TextPlugin implements Plugin<Project> {
 
     final static String GROUP_NAME = 'text'
 
-    TextPluginExtension textApp
+    TextPluginExtension textPlugin
+    DownloadText dlTxts
 
     void apply(Project project) {
         applyExtensions(project)
         /*project.task('hello') << {
             println "Hello from the GreetingPlugin"
-            println textApp
+            println textPlugin
         }*/
         applyTasks(project)
         // println new File(".").getAbsolutePath()
