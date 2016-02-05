@@ -7,9 +7,9 @@ import org.gradle.api.Task
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 
-class Hello implements Plugin<Project> {
+class TextPlugin implements Plugin<Project> {
 
-    final static String GROUP_NAME = 'aatGroup'
+    final static String GROUP_NAME = 'text'
 
     TextPluginExtension textApp
 
@@ -20,6 +20,7 @@ class Hello implements Plugin<Project> {
             println textApp
         }*/
         applyTasks(project)
+        // println new File(".").getAbsolutePath()
     }
 
     static void applyExtensions(final Project project) {
@@ -29,9 +30,9 @@ class Hello implements Plugin<Project> {
     static void applyTasks(final Project project) {
         if (project.plugins.hasPlugin(AppPlugin)) {
             AppExtension android = project.android
-            Task uploadAllTask = project.tasks.create("helloTask", Task);
-            uploadAllTask.group = GROUP_NAME
-            uploadAllTask.description = "Retrieve texts"
+            Task downloadTask = project.tasks.create("downloadTexts", Task);
+            downloadTask.group = GROUP_NAME
+            downloadTask.description = "Retrieve texts"
 
             /*android.applicationVariants.all { ApplicationVariant variant ->
                 HockeyAppUploadTask task = project.tasks.create("upload${variant.name.capitalize()}ToHockeyApp", HockeyAppUploadTask)
@@ -43,7 +44,7 @@ class Hello implements Plugin<Project> {
                 task.dependsOn variant.assemble
                 task.uploadAllPath = uploadAllPath
 
-                uploadAllTask.dependsOn(task)
+                downloadTask.dependsOn(task)
             }*/
         } else {
             println "An error ocurred"

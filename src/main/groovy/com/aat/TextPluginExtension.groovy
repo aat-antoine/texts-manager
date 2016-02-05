@@ -7,7 +7,7 @@ import org.gradle.api.Project
  */
 class TextPluginExtension {
     def Object outputDirectory
-    def String url = null
+    def String ws = null
 
     private Project project
 
