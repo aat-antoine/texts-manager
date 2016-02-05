@@ -5,16 +5,16 @@ import groovy.json.JsonSlurper
 class DownloadText {
 
     TextPluginExtension textPlugin
-    String ws
+    def ws
 
     DownloadText() {
-        ws = textPlugin.ws
+        ws = new URL(textPlugin.ws)
         textPlugin.languages.each {
             loadTextWithLang(it)
         }
     }
 
-    public static void loadTextWithLang(def lang) {
+    public void loadTextWithLang(def lang) {
         def json = new JsonSlurper().parseText(ws.getText(
             requestProperties: [Accept: 'application/json', language: lang, translateKey: '%_$s']
         ))

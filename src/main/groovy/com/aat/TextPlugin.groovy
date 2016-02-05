@@ -9,17 +9,13 @@ import com.android.build.gradle.AppPlugin
 
 class TextPlugin implements Plugin<Project> {
 
-    final static String GROUP_NAME = 'text'
+    final static String GROUP_NAME = 'Text'
 
-    TextPluginExtension textPlugin
+    // TextPluginExtension textPlugin
     DownloadText dlTxts
 
     void apply(Project project) {
         applyExtensions(project)
-        /*project.task('hello') << {
-            println "Hello from the GreetingPlugin"
-            println textPlugin
-        }*/
         applyTasks(project)
         // println new File(".").getAbsolutePath()
     }
