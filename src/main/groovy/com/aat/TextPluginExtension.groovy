@@ -8,6 +8,7 @@ import org.gradle.api.Project
 class TextPluginExtension {
 
     String ws = null
+    String missingKeys = null
     Map<String, String> variantToWs = null
     String defaultLanguage = 'en'
     def languages = []
