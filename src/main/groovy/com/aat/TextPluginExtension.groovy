@@ -6,28 +6,19 @@ import org.gradle.api.Project
  * Extension for plugin config properties
  */
 class TextPluginExtension {
-    def Object outputDirectory
-    def String ws = null
-    def Map<String, String> variantToWs = null
-    def defaultLanguage = 'en'
+
+    String ws = null
+    Map<String, String> variantToWs = null
+    String defaultLanguage = 'en'
     def languages = []
 
     private Project project
 
     public TextPluginExtension(Project project) {
         this.project = project
-        this.outputDirectory = {
+        /*this.outputDirectory = {
             return project.project.getBuildDir()
-        }
+        }*/
     }
-
-    File getOutputDirectory() {
-        return project.file(outputDirectory)
-    }
-
-    void setOutputDirectory(Object outputDirectory) {
-        this.outputDirectory = outputDirectory
-    }
-
 
 }

@@ -10,9 +10,7 @@ import com.android.build.gradle.AppPlugin
 class TextPlugin implements Plugin<Project> {
 
     final static String GROUP_NAME = 'Text'
-
     // TextPluginExtension textPlugin
-    DownloadText dlTxts
 
     void apply(Project project) {
         applyExtensions(project)
@@ -27,7 +25,7 @@ class TextPlugin implements Plugin<Project> {
     static void applyTasks(final Project project) {
         if (project.plugins.hasPlugin(AppPlugin)) {
             AppExtension android = project.android
-            Task downloadTask = project.tasks.create("downloadTexts", Task);
+            DownloadTextTask downloadTask = project.tasks.create("downloadTexts", DownloadTextTask);
             downloadTask.group = GROUP_NAME
             downloadTask.description = "Retrieve texts"
 
