@@ -19,7 +19,7 @@ class DownloadTextTask extends DefaultTask {
         ws = new URL(textPlugin.ws)
         textPlugin.languages.add(textPlugin.defaultLanguage)
         textPlugin.languages.each {
-            loadTextWithLang(it)
+            loadTextWithLang(it.toLowerCase())
         }
     }
 
