@@ -16,10 +16,12 @@ class DownloadTextTask extends DefaultTask {
     @TaskAction
     def load() throws IOException {
         textPlugin = project.texts
-        ws = new URL(textPlugin.ws)
-        textPlugin.languages.add(textPlugin.defaultLanguage)
-        textPlugin.languages.each {
-            loadTextWithLang(it.toLowerCase())
+        if (textPlugin.ws) {
+            ws = new URL(textPlugin.ws)
+            textPlugin.languages.add(textPlugin.defaultLanguage)
+            textPlugin.languages.each {
+                loadTextWithLang(it.toLowerCase())
+            }
         }
     }
 
