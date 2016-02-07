@@ -49,7 +49,7 @@ class DownloadTextTask extends DefaultTask {
                 } else if (myText.value.contains("'")) {
                     myText.value = myText.value.replaceAll("'", "\\\\'")
                 }
-                file << "    <string name=\"$myText.key\">$myText.value</string>\n"
+                file << "    <string name=\"${myText.key.trim()}\">$myText.value</string>\n"
                 // println myText.key + ' ' + myText.value
             }
         }
