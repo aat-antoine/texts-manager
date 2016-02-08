@@ -63,7 +63,7 @@ class DownloadTextTask extends DefaultTask {
                     println "$a.key has been removed"
                 }
                 a.key <=> b.key*/
-                it.key
+                it.key.trim()
             }
             // texts = texts.reverse()
         }
