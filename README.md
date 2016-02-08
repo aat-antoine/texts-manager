@@ -51,8 +51,6 @@ text {
 
 ## Advanced usage
 
-Add to your build.gradle
-
 ```gradle
 texts {
         defaultLanguage = 'en'
