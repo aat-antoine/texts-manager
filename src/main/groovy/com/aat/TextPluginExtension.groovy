@@ -12,6 +12,8 @@ class TextPluginExtension {
     Map<String, String> variantToWs = null
     String defaultLanguage = 'en'
     def languages = []
+    boolean removeDuplicate = true
+    boolean alphabeticallySort = true
 
     private Project project
 
