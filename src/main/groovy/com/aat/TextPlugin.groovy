@@ -24,9 +24,10 @@ class TextPlugin implements Plugin<Project> {
     static void applyTasks(final Project project) {
         if (project.plugins.hasPlugin(AppPlugin)) {
             AppExtension android = project.android
-            Task downloadTask = project.tasks.create("downloadTexts", Task);
+            /*Task downloadTask = project.tasks.create("downloadTexts", Task);
             downloadTask.group = GROUP_NAME
             downloadTask.description = "Retrieve texts"
+            downloadTask.outputs.upToDateWhen { false }*/
 
             android.applicationVariants.all { ApplicationVariant variant ->
                 DownloadTextTask task = project.tasks.create("downloadTextsFrom${variant.name.capitalize()}Ws", DownloadTextTask)

@@ -20,16 +20,17 @@ class DownloadTextTask extends DefaultTask {
     def load() throws IOException {
         textPlugin = project.texts
         if (textPlugin.ws) {
-            initWsUrl();
-            ws = new URL(textPlugin.ws)
+            initWsUrl()
             textPlugin.languages.add(textPlugin.defaultLanguage)
             textPlugin.languages.each {
+                println it.toLowerCase()
                 loadTextWithLang(it.toLowerCase())
             }
         }
     }
 
-    private void loadTextWithLang(String lang) {
+    public void loadTextWithLang(String lang) {
+        println "WS : " + ws
         def json = new JsonSlurper().parseText(ws.getText(
             requestProperties: [Accept: 'application/json', language: lang, translateKey: '%_$s']
         ))
@@ -56,7 +57,6 @@ class DownloadTextTask extends DefaultTask {
                     myText.value = myText.value.replaceAll("'", "\\\\'")
                 }
                 file << "    <string name=\"${myText.key.trim()}\">$myText.value</string>\n"
-                // println myText.key + ' ' + myText.value
             }
         }
 
@@ -70,12 +70,13 @@ class DownloadTextTask extends DefaultTask {
     }
 
     private void initWsUrl() {
-        ws = text.ws
-        if (text.variantToWs) {
-            if (text.variantToWs[variantName]) {
-                ws = text.variantToWs[variantName]
+        String wsUrl = textPlugin.ws
+        if (textPlugin.variantToWs) {
+            if (textPlugin.variantToWs[variantName]) {
+                wsUrl = textPlugin.variantToWs[variantName]
             }
         }
+        ws = new URL(wsUrl)
     }
 }
 
