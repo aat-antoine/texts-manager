@@ -1,11 +1,14 @@
 package com.aat
 
+import com.android.build.gradle.api.ApplicationVariant
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class DownloadTextTask extends DefaultTask {
 
+    ApplicationVariant applicationVariant
+    String variantName
     TextPluginExtension textPlugin
     def ws
 
@@ -17,6 +20,7 @@ class DownloadTextTask extends DefaultTask {
     def load() throws IOException {
         textPlugin = project.texts
         if (textPlugin.ws) {
+            initWsUrl();
             ws = new URL(textPlugin.ws)
             textPlugin.languages.add(textPlugin.defaultLanguage)
             textPlugin.languages.each {
@@ -25,7 +29,7 @@ class DownloadTextTask extends DefaultTask {
         }
     }
 
-    public void loadTextWithLang(def lang) {
+    private void loadTextWithLang(String lang) {
         def json = new JsonSlurper().parseText(ws.getText(
             requestProperties: [Accept: 'application/json', language: lang, translateKey: '%_$s']
         ))
@@ -63,6 +67,15 @@ class DownloadTextTask extends DefaultTask {
         }
         file << "</resources>"
         println "We've done with [" + lang + "]"
+    }
+
+    private void initWsUrl() {
+        ws = text.ws
+        if (text.variantToWs) {
+            if (text.variantToWs[variantName]) {
+                ws = text.variantToWs[variantName]
+            }
+        }
     }
 }
 
