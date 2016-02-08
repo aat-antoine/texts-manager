@@ -57,15 +57,9 @@ class DownloadTextTask extends DefaultTask {
             }
         }
         if (textPluginExt.removeDuplicate) {
-            // texts = texts.reverse()
-            texts.unique { /*a, b ->
-                if (a.key == b.key) {
-                    println "$a.key has been removed"
-                }
-                a.key <=> b.key*/
+            texts.unique {
                 it.key.trim()
             }
-            // texts = texts.reverse()
         }
         texts.each { myText ->
             if (myText.id != null && myText.value != null) {
