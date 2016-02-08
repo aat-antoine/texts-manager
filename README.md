@@ -59,10 +59,9 @@ texts {
         missingKeys = '''
 <!-- other resources (not present in WS) -->
 <string name="app_name">appName</string>
+'''
 ...
 }
-'''
-
 ```
 ### Fields
 * `defaultLanguage`: Your default language
