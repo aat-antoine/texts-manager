@@ -58,6 +58,7 @@ class DownloadTextTask extends DefaultTask {
 
         // Theses keys will be addded by customer later
         if (lang == textPlugin.defaultLanguage && textPlugin.missingKeys != null) {
+            file << "    <!-- Keys added by user -->"
             file << textPlugin.missingKeys
         }
         file << "</resources>"
