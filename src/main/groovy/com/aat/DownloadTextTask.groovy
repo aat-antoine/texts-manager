@@ -65,8 +65,13 @@ class DownloadTextTask extends DefaultTask {
                 if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
                     if (myText.value.contains("&")) {
                         myText.value = myText.value.replaceAll("&", "&amp;")
-                    } else if (myText.value.contains("'")) {
+                    }
+                    if (myText.value.contains("'")) {
                         myText.value = myText.value.replaceAll("'", "\\\\'")
+                    }
+                    // TODO catch case when there is %1$s
+                    if (myText.value.contains('%')) {
+                        myText.key = myText.key + '" formatted="false"'
                     }
                     file << "    <string name=\"${myText.key.trim()}\">$myText.value</string>\n"
                 }
