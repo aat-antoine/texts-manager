@@ -59,14 +59,20 @@ texts {
         missingKeys = '''
 <!-- other resources (not present in WS) -->
 <string name="app_name">appName</string>
+<string name="dontforget">Don\'t Forget</string>
 '''
 ...
 }
 ```
+
+Don't forget to escape your special characters
+
 ### Fields
 * `defaultLanguage`: Your default language
 * `languages`: All languages available for the app
 * `ws`: Where you can retrieve texts as json
 * `missingKeys`: Keys you want to add (not in WS)
+* `removeDuplicate`: Remove all duplicates keys (default is yes)
+* `alphabeticallySort`: Use alphabetical sort on the keys (default is yes)
 
 
