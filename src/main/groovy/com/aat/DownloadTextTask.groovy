@@ -69,9 +69,12 @@ class DownloadTextTask extends DefaultTask {
                     if (myText.value.contains("'")) {
                         myText.value = myText.value.replaceAll("'", "\\\\'")
                     }
-                    // TODO catch case when there is %1$s
-                    if (myText.value.contains('%')) {
-                        myText.key = myText.key + '" formatted="false"'
+
+                    // Add formatted="false" if text contains %
+                    // But we do not handle %1$s
+                    def pattern = /.*%[0-9]\$.*/
+                    if (myText.value.contains('%') && myText.value ==~ pattern) {
+                        myText.key = myText.key + '" formatted="false'
                     }
                     file << "    <string name=\"${myText.key.trim()}\">$myText.value</string>\n"
                 }
