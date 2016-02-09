@@ -31,7 +31,11 @@ class DownloadTextTask extends DefaultTask {
     public void loadTextWithLang(String lang) {
         println "WS : " + ws
         def json = new JsonSlurper().parseText(ws.getText(
-            requestProperties: [Accept: 'application/json', language: lang, translateKey: '%_$s']
+            requestProperties: [
+                accept: 'application/json', 
+                language: lang, 
+                translateKey: '%_$s'
+            ]
         ))
         def dir = 'values';
         if (!lang.equals(textPluginExt.defaultLanguage)) {
@@ -60,6 +64,7 @@ class DownloadTextTask extends DefaultTask {
                 it.key.trim()
             }
         }
+
         texts.each { myText ->
             if (myText.id != null && myText.value != null) {
                 if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
@@ -73,7 +78,7 @@ class DownloadTextTask extends DefaultTask {
                     // Add formatted="false" if text contains %
                     // But we do not handle %1$s
                     def pattern = /.*%[0-9]\$.*/
-                    if (myText.value.contains('%') && myText.value ==~ pattern) {
+                    if (myText.value.contains('%') && !(myText.value ==~ pattern)) {
                         myText.key = myText.key + '" formatted="false'
                     }
                     file << "    <string name=\"${myText.key.trim()}\">$myText.value</string>\n"
