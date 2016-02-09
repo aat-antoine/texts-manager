@@ -14,6 +14,7 @@ class TextPluginExtension {
     def languages = []
     boolean removeDuplicate = true
     boolean alphabeticallySort = true
+    boolean removeBadKeys = true
 
     private Project project
 

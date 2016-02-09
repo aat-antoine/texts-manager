@@ -34,7 +34,7 @@ class DownloadTextTask extends DefaultTask {
 
     public void loadTextWithLang(String lang) {
         println "WS : " + ws
-        def content2 = new HTTPBuilder(ws.toString()).request(GET, TEXT) { req ->
+        def content = new HTTPBuilder(ws.toString()).request(GET, TEXT) { req ->
             headers.'accept' = 'application/json'
             headers.'language' = lang
             headers.'translateKey' = '%_$s'
@@ -44,8 +44,8 @@ class DownloadTextTask extends DefaultTask {
                 reader.text
             }
         }
-        if (content2) {
-            def json = new JsonSlurper().parseText(content2)
+        if (content) {
+            def json = new JsonSlurper().parseText(content)
             def dir = 'values';
             if (!lang.equals(textPluginExt.defaultLanguage)) {
                 dir = 'values-' + lang
@@ -76,7 +76,9 @@ class DownloadTextTask extends DefaultTask {
 
             texts.each { myText ->
                 if (myText.key != null && myText.value != null) {
-                    if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
+                    if (textPluginExt.removeBadKeys && myText.key.contains(" ")) {
+                        return
+                    } else if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
                         if (myText.value.contains("&")) {
                             myText.value = myText.value.replaceAll("&", "&amp;")
                         }
@@ -108,7 +110,7 @@ class DownloadTextTask extends DefaultTask {
             file << '</resources>'
             println "We've done with [" + lang + ']'
         } else {
-            println 'content is null or empty'
+            println 'Content is null or empty'
         }
     }
 
