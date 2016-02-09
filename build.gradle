@@ -38,9 +38,13 @@ bintray {
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://repository.codehaus.org"
+    } 
 }
 
 dependencies {
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     compile localGroovy()
     compile gradleApi()
     compile 'com.android.tools.build:gradle:1.5.0'
