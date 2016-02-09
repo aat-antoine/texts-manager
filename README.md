@@ -74,5 +74,6 @@ Don't forget to escape your special characters
 * `missingKeys`: Keys you want to add (not in WS)
 * `removeDuplicate`: Remove all duplicates keys (default is yes)
 * `alphabeticallySort`: Use alphabetical sort on the keys (default is yes)
+* `removeBadKeys`: Remove keys which contains white space (default yes)
 
 
