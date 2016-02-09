@@ -75,7 +75,7 @@ class DownloadTextTask extends DefaultTask {
             }
 
             texts.each { myText ->
-                if (myText.id != null && myText.value != null) {
+                if (myText.key != null && myText.value != null) {
                     if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
                         if (myText.value.contains("&")) {
                             myText.value = myText.value.replaceAll("&", "&amp;")
