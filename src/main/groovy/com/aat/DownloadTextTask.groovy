@@ -6,8 +6,11 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.EncoderRegistry
 import static groovyx.net.http.Method.GET
+import static groovyx.net.http.Method.POST
 import static groovyx.net.http.ContentType.TEXT
+import static groovyx.net.http.ContentType.URLENC
 
 class DownloadTextTask extends DefaultTask {
 
@@ -29,6 +32,8 @@ class DownloadTextTask extends DefaultTask {
             textPluginExt.languages.each {
                 loadTextWithLang(it.toLowerCase())
             }
+        } else if (textPluginExt.gSheetClientId) {
+            callSheetApi()
         }
     }
 
@@ -42,6 +47,11 @@ class DownloadTextTask extends DefaultTask {
             response.success = { resp, reader ->
                 // println reader.text
                 reader.text
+            }
+
+            response.failure = { resp, reader ->
+                println resp.statusLine
+                println 'Impossible to download texts ...'
             }
         }
         if (content) {
@@ -112,6 +122,59 @@ class DownloadTextTask extends DefaultTask {
         } else {
             println 'Content is null or empty'
         }
+    }
+
+    public void callSheetApi() {
+        // https://developers.google.com/identity/protocols/OAuth2WebServer
+        // String oauthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=' + textPluginExt.gSheetClientId + '&redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Fcode&scope=https://www.googleapis.com/auth/drive'
+        String oauthUrl = 'https://accounts.google.com/o/oauth2/device/code'
+        println 'Url : ' + oauthUrl
+
+        def code = new HTTPBuilder(oauthUrl).request(POST, URLENC) { req ->
+            // headers.'Content-Type' = 'application/x-www-form-urlencoded'
+            body = [client_id: textPluginExt.gSheetClientId, scope: 'https://docs.google.com/feeds']
+
+            headers.'Accept' = 'application/json'
+            headers.'Content-Type' = 'application/x-www-form-urlencoded'
+            response.success = { resp, reader ->
+                def stream
+                println 'Status : ' + resp.statusLine
+                println 'Stream : ' + reader
+                reader.each { key, value ->
+                    println 'Key : ' + key
+                    println 'Value : ' + value
+                    stream = key
+                }
+                println 'device_code : ' + reader.device_code
+                println 'Class : ' + reader.getClass()
+                println reader.text
+                stream
+            }
+            response.failure = { resp, reader ->
+                println resp.statusLine
+                println reader.text
+            }
+        }
+
+        if (code) {
+            println 'JSON is good'
+            def json = new JsonSlurper().parseText(code)
+            println 'Device code : ' + json.device_code
+        } else {
+            println 'An error occurred !'
+        }
+
+        /*def content = new HTTPBuilder(ws.toString()).request(GET, TEXT) { req ->
+            headers.'accept' = 'application/json'
+            response.success = { resp, reader ->
+                println resp.statusLine
+                println reader.text
+            }
+            response.failure = { resp, reader ->
+                println resp.statusLine
+                println reader.text
+            }
+        }*/
     }
 
     private void initWsUrl() {

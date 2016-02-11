@@ -15,6 +15,9 @@ class TextPluginExtension {
     boolean removeDuplicate = true
     boolean alphabeticallySort = true
     boolean removeBadKeys = true
+    // gSheet credentials
+    String gSheetClientId = null
+    String gSheetClientSecret = null
 
     private Project project
 
