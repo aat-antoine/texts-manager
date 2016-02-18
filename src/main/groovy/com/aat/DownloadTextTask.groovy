@@ -86,6 +86,7 @@ class DownloadTextTask extends DefaultTask {
 
             texts.each { myText ->
                 if (myText.key != null && myText.value != null) {
+                    myText.key = myText.key.trim()
                     if (textPluginExt.removeBadKeys && myText.key.contains(" ")) {
                         return
                     } else if (!myText.key.matches("\\d.*")) {  // key must not start with a digit
