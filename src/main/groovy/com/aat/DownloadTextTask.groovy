@@ -60,12 +60,16 @@ class DownloadTextTask extends DefaultTask {
             if (!lang.equals(textPluginExt.defaultLanguage)) {
                 dir = 'values-' + lang
             }
+            // TODO improve that
+            // If we run from cmd line -> no problem
+            // but from IDE path is wrong
             String currentDir = new File(".").getAbsoluteFile().getParent()
             currentDir = currentDir + '/app/src/main/res/'
 
             File myDir = new File(currentDir + dir);
+            println 'Dir : ' + myDir
             if (!myDir.exists()) {
-                myDir.mkdirs();
+                myDir.mkdirs()
             }
             File file = new File(myDir.getAbsolutePath() + File.separator + 'strings.xml')
             file.write '<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\n'
