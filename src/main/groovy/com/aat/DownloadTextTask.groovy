@@ -56,18 +56,13 @@ class DownloadTextTask extends DefaultTask {
         }
         if (content) {
             def json = new JsonSlurper().parseText(content)
-            def dir = 'values';
+            def valuesDir = '/values';
             if (!lang.equals(textPluginExt.defaultLanguage)) {
-                dir = 'values-' + lang
+                valuesDir = '/values-' + lang
             }
-            // TODO improve that
-            // If we run from cmd line -> no problem
-            // but from IDE path is wrong
-            String currentDir = new File(".").getAbsoluteFile().getParent()
-            currentDir = currentDir + '/app/src/main/res/'
-
-            File myDir = new File(currentDir + dir);
-            println 'Dir : ' + myDir
+            
+            String resPath = project.file('src/main/res')
+            File myDir = new File(resPath + valuesDir);
             if (!myDir.exists()) {
                 myDir.mkdirs()
             }
