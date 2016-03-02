@@ -12,6 +12,18 @@ import static groovyx.net.http.Method.POST
 import static groovyx.net.http.ContentType.TEXT
 import static groovyx.net.http.ContentType.URLENC
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.Details
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
+import com.google.api.client.http.HttpTransport
+import com.google.api.services.oauth2.Oauth2
+import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.auth.oauth2.Credential
+
+
 class DownloadTextTask extends DefaultTask {
 
     ApplicationVariant applicationVariant
@@ -33,7 +45,7 @@ class DownloadTextTask extends DefaultTask {
                 loadTextWithLang(it.toLowerCase())
             }
         } else if (textPluginExt.gSheetClientId) {
-            callSheetApi()
+            callSheetApiThree()
         }
     }
 
@@ -160,6 +172,33 @@ class DownloadTextTask extends DefaultTask {
             println 'JSON is good'
             def json = new JsonSlurper().parseText(code)
             println 'Device code : ' + json.device_code
+            def oauthCode = new HTTPBuilder(oauthUrl).request(POST, URLENC) { req ->
+                // headers.'Content-Type' = 'application/x-www-form-urlencoded'
+                body = [client_id: textPluginExt.gSheetClientId, 
+                        scope: 'https://docs.google.com/feeds',
+                        code: json.device_code,
+                        grant_type: 'http://oauth.net/grant_type/device/1.0']
+
+                headers.'Accept' = 'application/json'
+                headers.'Content-Type' = 'application/x-www-form-urlencoded'
+                response.success = { resp, reader ->
+                    def stream
+                    println 'Status : ' + resp.statusLine
+                    println 'Stream : ' + reader
+                    reader.each { key, value ->
+                        println 'Key : ' + key
+                        println 'Value : ' + value
+                        stream = key
+                    }
+                    println 'Class : ' + reader.getClass()
+                    println reader.text
+                    stream
+                }
+                response.failure = { resp, reader ->
+                    println resp.statusLine
+                    println reader.text
+                }
+            }
         } else {
             println 'An error occurred !'
         }
@@ -176,6 +215,42 @@ class DownloadTextTask extends DefaultTask {
             }
         }*/
     }
+
+    public void callSheetApiTwo() {
+        // Make Oauth
+        Details details = new Details()
+        details.setClientId(textPluginExt.gSheetClientId)
+        details.setClientSecret(textPluginExt.gSheetClientSecret)
+        GoogleClientSecrets clientSecrets = new GoogleClientSecrets()
+        clientSecrets.setInstalled(details)
+
+        HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport()
+        List<String> SCOPES = ['https://spreadsheets.google.com/feeds']
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+            httpTransport, JacksonFactory.getDefaultInstance(), clientSecrets, SCOPES).build()
+
+        // authorization
+        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user")
+
+        Oauth2 oauth2 = new Oauth2.Builder(httpTransport, JacksonFactory.getDefaultInstance(), credential).build()
+
+        println 'Access token : ' + credential.getAccessToken()
+    }
+
+    public void callSheetApiThree() {
+        // https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+        String header = '''{"alg":"RS256","typ":"JWT"}.
+{
+"iss":"761326798069-r5mljlln1rd4lrbhg75efgigp36m78j5@developer.gserviceaccount.com",
+"scope":"https://www.googleapis.com/auth/prediction",
+"aud":"https://www.googleapis.com/oauth2/v4/token",
+"exp":1328554385,
+"iat":1328550785
+}.
+'''
+        String encoded = header.bytes.encodeBase64().toString()
+        println encoded
+     }
 
     private void initWsUrl() {
         String wsUrl = textPluginExt.ws
