@@ -1,27 +1,17 @@
 package com.aat
 
 import com.android.build.gradle.api.ApplicationVariant
+import com.google.api.services.sheets.v4.Sheets
+import com.google.api.services.sheets.v4.model.ValueRange
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import groovyx.net.http.HTTPBuilder
-import groovyx.net.http.EncoderRegistry
 import static groovyx.net.http.Method.GET
 import static groovyx.net.http.Method.POST
 import static groovyx.net.http.ContentType.TEXT
 import static groovyx.net.http.ContentType.URLENC
-
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.Details
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
-import com.google.api.client.http.HttpTransport
-import com.google.api.services.oauth2.Oauth2
-import com.google.api.client.json.jackson2.JacksonFactory
-import com.google.api.client.auth.oauth2.Credential
 
 
 class DownloadTextTask extends DefaultTask {
@@ -44,8 +34,8 @@ class DownloadTextTask extends DefaultTask {
             textPluginExt.languages.each {
                 loadTextWithLang(it.toLowerCase())
             }
-        } else if (textPluginExt.gSheetClientId) {
-            callSheetApiThree()
+        } else if (textPluginExt.gSpreadsheetId) {
+            callSheet()
         }
     }
 
@@ -136,6 +126,27 @@ class DownloadTextTask extends DefaultTask {
         }
     }
 
+    public void callSheet() {
+        GSheet.defineSecretPath(textPluginExt.gSheetClientSecret);
+        Sheets service = GSheet.getSheetsService();
+        String range = "EN";
+        ValueRange response = service.spreadsheets().values()
+                .get(textPluginExt.gSpreadsheetId, range)
+                .execute();
+        List<List<Object>> values = response.getValues();
+        if (values == null || values.size() == 0) {
+            System.out.println("No data found.");
+        } else {
+            System.out.println("Name, Major");
+            for (List row : values) {
+                // Print columns A and E, which correspond to indices 0 and 4.
+                if (row.size() >= 3) {
+                    System.out.printf("%s, %s\n", row.get(1), row.get(2));
+                }
+            }
+        }
+    }
+
     public void callSheetApi() {
         // https://developers.google.com/identity/protocols/OAuth2WebServer
         // String oauthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=' + textPluginExt.gSheetClientId + '&redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Fcode&scope=https://www.googleapis.com/auth/drive'
@@ -216,7 +227,7 @@ class DownloadTextTask extends DefaultTask {
         }*/
     }
 
-    public void callSheetApiTwo() {
+    /*public void callSheetApiTwo() {
         // Make Oauth
         Details details = new Details()
         details.setClientId(textPluginExt.gSheetClientId)
@@ -235,7 +246,7 @@ class DownloadTextTask extends DefaultTask {
         Oauth2 oauth2 = new Oauth2.Builder(httpTransport, JacksonFactory.getDefaultInstance(), credential).build()
 
         println 'Access token : ' + credential.getAccessToken()
-    }
+    }*/
 
     public void callSheetApiThree() {
         // https://developers.google.com/identity/protocols/OAuth2ServiceAccount
