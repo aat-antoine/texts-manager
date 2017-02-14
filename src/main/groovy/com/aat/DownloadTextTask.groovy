@@ -109,7 +109,7 @@ class DownloadTextTask extends DefaultTask {
                 }
             }
 
-            // Theses keys will be addded by customer later
+            // Theses keys will be added by customer later
             if (lang == textPluginExt.defaultLanguage && textPluginExt.missingKeys != null) {
                 file << '    <!-- Keys added by user -->\n'
                 def values = textPluginExt.missingKeys.tokenize('\n')
@@ -135,16 +135,28 @@ class DownloadTextTask extends DefaultTask {
                 .execute();
         List<List<Object>> values = response.getValues();
         if (values == null || values.size() == 0) {
-            System.out.println("No data found.");
+            println "No data found.";
+        } else if (textPluginExt.gColumnIndexForKey == textPluginExt.gColumnIndexForValue) {
+            println "Same index for key and value";
         } else {
-            System.out.println("Name, Major");
+            println "Everything seems to be ok ...";
             for (List row : values) {
                 // Print columns A and E, which correspond to indices 0 and 4.
-                if (row.size() >= 3) {
-                    System.out.printf("%s, %s\n", row.get(1), row.get(2));
+                if (row.size() >= sheetMaxSize()) {
+                    System.out.printf("%s, %s\n",
+                            row.get(textPluginExt.gColumnIndexForKey),
+                            row.get(textPluginExt.gColumnIndexForValue)
+                    );
                 }
             }
         }
+    }
+
+    private int sheetMaxSize() {
+        if (textPluginExt.gColumnIndexForKey > textPluginExt.gColumnIndexForValue) {
+            return textPluginExt.gColumnIndexForKey + 1;
+        }
+        return textPluginExt.gColumnIndexForValue + 1;
     }
 
     public void callSheetApi() {

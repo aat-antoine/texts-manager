@@ -18,6 +18,8 @@ class TextPluginExtension {
     // gSheet credentials
     String gSpreadsheetId = null
     String gSheetClientSecret = null
+    int gColumnIndexForKey = 0
+    int gColumnIndexForValue = 1
 
     private Project project
 
