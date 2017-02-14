@@ -39,11 +39,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.aat:gradle-retrieve-text:0.5.0'
+        classpath 'com.mrroboaat:gradle-retrieve-text:0.5.0'
     }
 }
 
-apply plugin: 'com.aat'
+apply plugin: 'com.mrroboaat'
 text {
     ...
 }

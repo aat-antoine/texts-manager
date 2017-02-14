@@ -7,13 +7,13 @@ apply plugin: 'maven-publish'
 apply plugin: 'java'
 
 archivesBaseName = "gradle-retrieve-text"
-group 'com.aat'
+group 'com.mrroboaat'
 
 publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
-            groupId 'com.aat'
+            groupId 'com.mrroboaat'
             artifactId 'gradle-retrieve-text'
             version project.property('version')
         }
@@ -29,7 +29,7 @@ bintray {
         repo = 'maven'
         name = 'gradle-retrieve-text'
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
+        vcsUrl = 'https://github.com/mrroboaat-antoine/gradle-retrieve-text.git'
         version {
             name = project.property('version')
         }
