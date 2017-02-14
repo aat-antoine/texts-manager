@@ -29,7 +29,7 @@ bintray {
         repo = 'maven'
         name = 'gradle-retrieve-text'
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/mrroboaat-antoine/gradle-retrieve-text.git'
+        vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
         version {
             name = project.property('version')
         }

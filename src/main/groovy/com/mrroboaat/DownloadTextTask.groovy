@@ -8,6 +8,9 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 import groovyx.net.http.HTTPBuilder
+
+import java.util.regex.Matcher
+
 import static groovyx.net.http.Method.GET
 import static groovyx.net.http.Method.POST
 import static groovyx.net.http.ContentType.TEXT
@@ -142,6 +145,18 @@ class DownloadTextTask extends DefaultTask {
                     }
                     if (myText.value.contains("'")) {
                         myText.value = myText.value.replaceAll("'", "\\\\'")
+                    }
+
+                    def patternForDyn = /##(.*?)##/
+                    if (myText.value ==~ patternForDyn) {
+                        println 'Detected'
+                    }
+                    Matcher myMatcher = myText.value =~ patternForDyn
+                    int position = 1
+                    while (myMatcher.find()) {
+                        def match = '%' + position + '$s'
+                        myText.value = myText.value.replaceFirst(myMatcher.group(0), Matcher.quoteReplacement(match))
+                        position++
                     }
 
                     // Add formatted="false" if text contains %
