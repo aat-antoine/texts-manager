@@ -3,7 +3,6 @@ package com.aat
 import com.android.build.gradle.api.ApplicationVariant
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.ValueRange
-import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -29,6 +28,7 @@ class DownloadTextTask extends DefaultTask {
     @TaskAction
     def load() throws IOException {
         textPluginExt = project.texts
+        // Add default language to list of languages if it is not already in
         if (!textPluginExt.defaultLanguage in textPluginExt.languages) {
             textPluginExt.languages << textPluginExt.defaultLanguage
         }
@@ -84,10 +84,12 @@ class DownloadTextTask extends DefaultTask {
                 println 'Everything seems to be ok ...';
                 def texts = []
                 values.each { row ->
-                    Text txt = new Text();
-                    txt.key = row.get(textPluginExt.gColumnIndexForKey)
-                    txt.value = row.get(textPluginExt.gColumnIndexForValue)
-                    texts << txt
+                    if (row.size() >= sheetMaxSize()) {
+                        Text txt = new Text();
+                        txt.key = row.get(textPluginExt.gColumnIndexForKey)
+                        txt.value = row.get(textPluginExt.gColumnIndexForValue)
+                        texts << txt
+                    }
                 }
 
                 writeText(texts, range)
