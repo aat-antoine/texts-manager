@@ -24,7 +24,7 @@ class GSheet {
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
-            System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart");
+            System.getProperty("user.home"), ".credentials/mrroboaat.gradle-retrieve-text");
 
     /** Global instance of the {@link com.google.api.client.util.store.FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;

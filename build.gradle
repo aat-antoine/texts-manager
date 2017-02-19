@@ -14,7 +14,7 @@ publishing {
         MyPublication(MavenPublication) {
             from components.java
             groupId 'com.mrroboaat'
-            artifactId 'gradle-retrieve-text'
+            artifactId 'texts-manager'
             version project.property('version')
         }
     }
