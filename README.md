@@ -1,6 +1,6 @@
-# gradle-retrieve-text
+[ ![Download](https://api.bintray.com/packages/arnoult-antoine/maven/gradle-retrieve-text/images/download.svg) ](https://bintray.com/arnoult-antoine/maven/gradle-retrieve-text/_latestVersion)
 
-DO NOT USE IT IN PRODUCTION. PROJECT IS UNDER ACTIVE DEVELOPMENT
+# texts-manager
 
 A gradle plugin to manage texts from WS or csv hosted as google sheet
 
