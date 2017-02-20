@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gradle-retrieve-text-0.5.0">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/libs/gradle-retrieve-text-0.5.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

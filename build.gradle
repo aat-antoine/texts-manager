@@ -27,7 +27,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'gradle-retrieve-text'
+        name = 'texts-manager'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
         version {
