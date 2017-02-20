@@ -19,8 +19,11 @@ buildscript {
 }
 
 apply plugin: 'com.mrroboaat'
-text {
+android {
     // ...
+    texts {
+        // ...
+    }
 }
 ```
 
