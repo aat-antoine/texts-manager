@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="gradle-retrieve-text_main" target="1.8" />
       <module name="gradle-retrieve-text_test" target="1.8" />
+      <module name="texts-manager_main" target="1.8" />
+      <module name="texts-manager_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

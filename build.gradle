@@ -6,7 +6,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-archivesBaseName = "gradle-retrieve-text"
+archivesBaseName = "texts-manager"
 group 'com.mrroboaat'
 
 publishing {
@@ -29,7 +29,7 @@ bintray {
         repo = 'maven'
         name = 'texts-manager'
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/aat-antoine/gradle-retrieve-text.git'
+        vcsUrl = 'https://github.com/aat-antoine/texts-manager.git'
         version {
             name = project.property('version')
         }

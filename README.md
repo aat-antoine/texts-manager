@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/arnoult-antoine/maven/gradle-retrieve-text/images/download.svg) ](https://bintray.com/arnoult-antoine/maven/gradle-retrieve-text/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/arnoult-antoine/maven/texts-manager/images/download.svg) ](https://bintray.com/arnoult-antoine/maven/texts-manager/_latestVersion)
 
 # texts-manager
 
@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.mrroboaat:gradle-retrieve-text:1.0.1'
+        classpath 'com.mrroboaat:texts-manager:1.1.0'
     }
 }
 
@@ -57,7 +57,7 @@ TODO : Explain how to get client_secret.json form google API console
 
 Your sheet should look like :
 
-![img](https://github.com/aat-antoine/gradle-retrieve-text/blob/master/GoogleSheet.png)
+![img](https://github.com/aat-antoine/texts-manager/blob/master/GoogleSheet.png)
 
 
 ## Advanced usage

@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_main.iml" group="gradle-retrieve-text" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_main.iml" group="gradle-retrieve-text" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_test.iml" group="gradle-retrieve-text" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-retrieve-text_test.iml" group="gradle-retrieve-text" />
-      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/texts-manager.iml" filepath="$PROJECT_DIR$/.idea/modules/texts-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/texts-manager_main.iml" filepath="$PROJECT_DIR$/.idea/modules/texts-manager_main.iml" group="texts-manager" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/texts-manager_test.iml" filepath="$PROJECT_DIR$/.idea/modules/texts-manager_test.iml" group="texts-manager" />
     </modules>
   </component>
 </project>
