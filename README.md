@@ -57,6 +57,9 @@ Plugin will produce the following lines and create right xml files if it does no
 
 TODO : Explain how to get client_secret.json form google API console
 
+Go to https://console.developers.google.com
+Enable google sheets API
+
 
 Your sheet should look like :
 
